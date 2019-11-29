@@ -69,6 +69,18 @@ function If(test, consequent, alternate = null) {
     };
 }
 
+function Try(body = [], handler = null, finalizer = null) {
+    return { type: "TryStatement", block: Block(body), handler, finalizer };
+}
+
+function Throw(expr) {
+    return { type: "ThrowStatement", argument: expr };
+}
+
+function Catch(param, body) {
+    return { type: "CatchClause", param, body: Block(body) };
+}
+
 module.exports = {
     Expression,
     Directive,
@@ -76,5 +88,7 @@ module.exports = {
     Empty,
     Debugger,
     Flow: Object.freeze({ Return, Labelel, Break, Continue }),
-    Choice: Object.freeze({ If })
+    Choice: Object.freeze({ If }),
+    Exceptions: Object.freeze({ Try, Throw, Catch }),
+    Loops: Object.freeze({})
 };

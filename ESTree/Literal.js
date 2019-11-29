@@ -19,7 +19,8 @@ class Literal {
     toJSON() {
         return {
             type: "Literal",
-            value: this.value
+            value: this.value,
+            raw: this.value
         };
     }
 }

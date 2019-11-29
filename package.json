@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "@slimio/is": "^1.5.1",
-    "astring": "^1.4.3",
+    "acorn": "^7.1.0",
+    "astring": "^1.4.2",
     "meriyah": "^1.9.2"
   }
 }

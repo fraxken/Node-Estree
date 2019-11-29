@@ -1,19 +1,40 @@
 "use strict";
 
 // Require Third-party Dependencies
-const meriyah = require("meriyah");
 const astring = require("astring");
+const acorn = require("acorn");
 
-// const nodesRoot = [];
-// nodesRoot.push(two.create());
+// Require Internal
+const { Expression, Block, Debugger } = require("./ESTree/Statements");
+const VariableDeclaration = require("./ESTree/VariableDeclaration");
+const VariableDeclarator = require("./ESTree/VariableDeclarator");
+const Identifier = require("./ESTree/Identifier");
+const Literal = require("./ESTree/Literal");
 
-// console.log(JSON.stringify(nodesRoot, null, 2))
+// const body = [];
+// body.push(Debugger());
+// body.push(Block([
+//     new VariableDeclaration("const")
+//         .declare(new VariableDeclarator(new Identifier("a"), new Literal("hello world!"))).toJSON()
+// ]));
 
-// for (const node of nodesRoot) {
-//     const code = astring.generate(node);
-//     console.log(code);
-// }
+// const toGenerate = {
+//     type: "Program",
+//     body,
+//     sourceType: "script"
+// };
+// console.log(JSON.stringify(toGenerate, null, 4));
 
-const code = `var a = 10`;
-const { body } = meriyah.parse(code);
-console.log(JSON.stringify(body, null, 4));
+// const code = astring.generate(toGenerate);
+// console.log(code);
+
+const code = `
+const add = (a, b) => {
+    return a + b;
+}`;
+const ast = acorn.parse(code);
+console.log(JSON.stringify(ast, null, 4));
+
+const finalCode = astring.generate(ast);
+console.log(finalCode);
+
