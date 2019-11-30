@@ -3,6 +3,11 @@
 // Require Third-party Dependencies
 const is = require("@slimio/is");
 
+// Require Internal Dependencies
+const isDeclaration = require("./isDeclaration");
+const isStatement = require("./isStatement");
+const isExpression = require("./isExpression");
+
 function isType(type, obj) {
     if (typeof type !== "string") {
         throw new TypeError("type must be a string");
@@ -15,5 +20,9 @@ function isType(type, obj) {
     return obj.type === type;
 }
 
-module.exports = { isType };
-
+module.exports = {
+    isType,
+    isExpression,
+    isDeclaration,
+    isStatement
+};

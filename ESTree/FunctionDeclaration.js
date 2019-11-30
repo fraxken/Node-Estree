@@ -1,12 +1,14 @@
 "use strict";
 
 // Require Internal Dependencies
+const Declaration = require("./Abstract/Declaration");
 const Identifier = require("./Identifier");
 const { Block } = require("./Statements");
 
-class FunctionDeclaration {
+class FunctionDeclaration extends Declaration {
     // eslint-disable-next-line max-params
     constructor(name, params = [], body = [], options = {}) {
+        super();
         const { expression = false, generator = false, async = false } = options;
 
         this.id = typeof name === "string" ? new Identifier(name) : null;

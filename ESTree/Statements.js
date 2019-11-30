@@ -3,6 +3,8 @@
 // Require Internal Dependencies
 const Literal = require("./Literal");
 const Identifier = require("./Identifier");
+const { isExpression, isStatement } = require("./Utils");
+const Switch = require("./SwitchStatement");
 
 function Expression(expression) {
     return { type: "ExpressionStatement", expression };
@@ -27,11 +29,26 @@ function Empty() {
     return { type: "EmptyStatement" };
 }
 
+function WithStatement(object, body) {
+    if (!isExpression(object)) {
+        throw new TypeError("object must be a valid AST Expression");
+    }
+    if (!isStatement(body)) {
+        throw new TypeError("body must be a valid AST Statement");
+    }
+
+    return { type: "WithStatement", object, body };
+}
+
 function Debugger() {
     return { type: "DebuggerStatement" };
 }
 
 function Return(arg = null) {
+    if (!isExpression(arg)) {
+        throw new TypeError("arg must be a valid AST Expression");
+    }
+
     return { type: "ReturnStatement", arguments: arg };
 }
 
@@ -39,7 +56,9 @@ function Labelel(label, body) {
     if (!(label instanceof Identifier)) {
         throw new TypeError("label must be an instanceof Identifier");
     }
-    // TODO: check if body is a valid statement
+    if (!isExpression(body)) {
+        throw new TypeError("body must be a valid AST Expression");
+    }
 
     return { type: "LabeledStatement", label, body };
 }
@@ -100,8 +119,9 @@ module.exports = {
     Block,
     Empty,
     Debugger,
+    WithStatement,
     Flow: Object.freeze({ Return, Labelel, Break, Continue }),
-    Choice: Object.freeze({ If }),
+    Choice: Object.freeze({ If, Switch }),
     Exceptions: Object.freeze({ Try, Throw, Catch }),
     Loops: Object.freeze({ WhileStatement, ForStatement, ForInStatement })
 };
