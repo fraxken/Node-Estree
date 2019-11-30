@@ -69,6 +69,19 @@ function If(test, consequent, alternate = null) {
     };
 }
 
+function WhileStatement(test, body) {
+    return { type: "WhileStatement", test, body };
+}
+
+// eslint-disable-next-line max-params
+function ForStatement(init, test = null, update = null, body) {
+    return { type: "ForStatement", init, test, update, body };
+}
+
+function ForInStatement(left, right, body) {
+    return { type: "ForInStatement", left, right, body };
+}
+
 function Try(body = [], handler = null, finalizer = null) {
     return { type: "TryStatement", block: Block(body), handler, finalizer };
 }
@@ -77,7 +90,7 @@ function Throw(expr) {
     return { type: "ThrowStatement", argument: expr };
 }
 
-function Catch(param, body) {
+function Catch(param = null, body) {
     return { type: "CatchClause", param, body: Block(body) };
 }
 
@@ -90,5 +103,5 @@ module.exports = {
     Flow: Object.freeze({ Return, Labelel, Break, Continue }),
     Choice: Object.freeze({ If }),
     Exceptions: Object.freeze({ Try, Throw, Catch }),
-    Loops: Object.freeze({})
+    Loops: Object.freeze({ WhileStatement, ForStatement, ForInStatement })
 };

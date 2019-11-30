@@ -1,0 +1,38 @@
+"use strict";
+
+// Require Internal Dependencies
+const Literal = require("./Literal");
+const Identifier = require("./Identifier");
+const isExpression = require("./Utils/isExpression");
+
+// CONSTANTS
+const kPropertyKinds = new Set(["init", "get", "set"]);
+
+class Property {
+    constructor(key, value, kind = "init") {
+        if (!kPropertyKinds.has(kind)) {
+            throw new TypeError("kind must be a valid property kind");
+        }
+        if (!(key instanceof Literal) && !(key instanceof Identifier)) {
+            throw new TypeError("key must be an instanceof Identifier or Literal");
+        }
+        if (!isExpression(value)) {
+            throw new TypeError("value must be valid AST Expression");
+        }
+
+        this.key = key.toJSON();
+        this.value = value;
+        this.kind = kind;
+    }
+
+    toJSON() {
+        return {
+            type: "Property",
+            key: this.key,
+            value: this.value,
+            kind: this.kind
+        };
+    }
+}
+
+module.exports = Property;

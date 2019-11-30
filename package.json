@@ -21,6 +21,7 @@
     "@slimio/eslint-config": "^3.0.3"
   },
   "dependencies": {
+    "@slimio/arg-checker": "^0.2.1",
     "@slimio/is": "^1.5.1",
     "acorn": "^7.1.0",
     "astring": "^1.4.2",

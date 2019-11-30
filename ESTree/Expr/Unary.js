@@ -1,5 +1,8 @@
 "use strict";
 
+// Require Internal Dependencies
+const isExpression = require("../Utils/isExpression");
+
 // CONSTANTS
 const kUnaryOperators = new Set(["-", "+", "!", "~", "typeof", "void", "delete"]);
 const kUnaryUpdateOperators = new Set(["++", "--"]);
@@ -10,6 +13,9 @@ function UnaryExpression(operator, prefix = false, expr) {
     }
     if (typeof prefix !== "boolean") {
         throw new TypeError("prefix must be typeof boolean");
+    }
+    if (!isExpression(expr)) {
+        throw new TypeError("expr must be valid AST Expression");
     }
 
     return {
@@ -26,6 +32,9 @@ function UpdateExpression(operator, prefix = false, expr) {
     }
     if (typeof prefix !== "boolean") {
         throw new TypeError("prefix must be typeof boolean");
+    }
+    if (!isExpression(expr)) {
+        throw new TypeError("expr must be valid AST Expression");
     }
 
     return {
