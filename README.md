@@ -1,4 +1,4 @@
-# ASTree
+# Node.js ESTree (AST) generator
 [ESTREE](https://github.com/estree/estree) Spec compliant AST Generator crafted for Node.js. This project is still experimental and doesn't implement the whole estree spec (doing my best).
 
 > Feel free to Pull-request or open issues
@@ -8,7 +8,9 @@
 This package is available in the Node Package Repository and can be easily installed with [npm](https://docs.npmjs.com/getting-started/what-is-npm) or [yarn](https://yarnpkg.com).
 
 ```bash
-$ npm install astree
+$ npm install node-estree
+# or
+$ yarn add node-estree
 ```
 
 ## Usage example
@@ -18,7 +20,7 @@ Following example require the [astring](https://github.com/davidbonnet/astring#r
 ```js
 "use strict";
 
-const astring = require("astring");
+const astring = require("node-estree");
 const {
     Expression: { CallExpression, ArrowFunctionExpression, NewExpression },
     Helpers: { CreateMemberExpr },

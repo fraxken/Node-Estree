@@ -1,7 +1,7 @@
 {
-  "name": "astree",
+  "name": "node-estree",
   "version": "1.0.0",
-  "description": "ESTREE AST Generator for Node.js",
+  "description": "Node.js EStree (AST) Generator for Node.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/fraxken/ASTree.git"
   },
-  "keywords": [],
+  "keywords": [
+      "node",
+      "estree",
+      "ast",
+      "generator",
+      "code",
+      "generation"
+  ],
   "author": "GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>",
   "license": "MIT",
   "files": [
