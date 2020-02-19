@@ -4,6 +4,15 @@
 // Require Internal Dependencies
 const Literal = require("./Literal");
 const Identifier = require("./Identifier");
+const { isExpression } = require("./Utils");
+
+function ImportExpression(expression) {
+    if (!isExpression) {
+        throw new Error("expression must be a valid Expression");
+    }
+
+    return { type: "ImportExpression", expression };
+}
 
 function ImportSpecifier(imported, local) {
     const localImported = Identifier.stringToIdentifier(imported);
@@ -76,6 +85,7 @@ function ExportAllDeclaration(source) {
 }
 
 module.exports = {
+    ImportExpression,
     ImportSpecifier,
     ImportDefaultSpecifier,
     ImportNamespaceSpecifier,

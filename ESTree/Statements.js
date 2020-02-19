@@ -102,7 +102,11 @@ function ForInStatement(left, right, body) {
 }
 
 function ForOfStatement(left, right, body) {
-    return { type: "ForOfStatement", left, right, body };
+    return { type: "ForOfStatement", left, right, body, await: false };
+}
+
+function ForAwaitOfStatement(left, right, body) {
+    return { type: "ForOfStatement", left, right, body, await: true };
 }
 
 function Try(body = [], handler = null, finalizer = null) {
@@ -127,5 +131,7 @@ module.exports = {
     Flow: Object.freeze({ Return, Labelel, Break, Continue }),
     Choice: Object.freeze({ If, Switch }),
     Exceptions: Object.freeze({ Try, Throw, Catch }),
-    Loops: Object.freeze({ WhileStatement, ForStatement, ForInStatement, ForOfStatement })
+    Loops: Object.freeze({
+        WhileStatement, ForStatement, ForInStatement, ForOfStatement, ForAwaitOfStatements
+    })
 };
