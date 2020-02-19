@@ -80,7 +80,7 @@ ee.on("start", () => {
 - Implement [Template Literals](https://github.com/estree/estree/blob/master/es2015.md#template-literals)
 - Implement [Patterns](https://github.com/estree/estree/blob/master/es2015.md#patterns)
 - Implement [Classes](https://github.com/estree/estree/blob/master/es2015.md#classes)
-- Implement rest and spread.
+- Enhance function (arrow, generator, async etc) declaration and made it simpler.
 
 ## License
 MIT

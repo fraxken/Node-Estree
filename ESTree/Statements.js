@@ -132,6 +132,6 @@ module.exports = {
     Choice: Object.freeze({ If, Switch }),
     Exceptions: Object.freeze({ Try, Throw, Catch }),
     Loops: Object.freeze({
-        WhileStatement, ForStatement, ForInStatement, ForOfStatement, ForAwaitOfStatements
+        WhileStatement, ForStatement, ForInStatement, ForOfStatement, ForAwaitOfStatement
     })
 };

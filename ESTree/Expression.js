@@ -8,7 +8,7 @@ const isExpression = require("./Utils/isExpression");
 const FunctionDeclaration = require("./FunctionDeclaration");
 
 // CONSTANTS
-const kAssignmentOperators = new Set(["=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", ",=", "^=", "&="]);
+const kAssignmentOperators = new Set(["=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", ",=", "^=", "&=", "**="]);
 const kLogicalOperators = new Set(["&&", "||"]);
 
 function ThisExpression() {
