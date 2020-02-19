@@ -42,9 +42,46 @@ function ImportDeclaration(specifiers = [], source) {
     };
 }
 
+function ExportSpecifier(exported, local) {
+    const localExported = Identifier.stringToIdentifier(exported);
+    const localLocal = Identifier.stringToIdentifier(local);
+
+    return {
+        type: "ExportSpecifier",
+        exported: localExported,
+        local: localLocal || localImported
+    };
+}
+
+function ExportNamedDeclaration(declaration = null, specifiers = [], source = null) {
+    return {
+        type: "ExportNamedDeclaration",
+        declaration,
+        specifiers,
+        source
+    };
+}
+
+function ExportDefaultDeclaration(declaration) {
+    return {
+        type: "ExportDefaultDeclaration", declaration
+    };
+}
+
+function ExportAllDeclaration(source) {
+    return {
+        type: "ExportAllDeclaration",
+        source: typeof source === "string" ? new Literal(source).toJSON() : source
+    };
+}
+
 module.exports = {
     ImportSpecifier,
     ImportDefaultSpecifier,
     ImportNamespaceSpecifier,
-    ImportDeclaration
+    ImportDeclaration,
+    ExportSpecifier,
+    ExportNamedDeclaration,
+    ExportDefaultDeclaration,
+    ExportAllDeclaration
 };
