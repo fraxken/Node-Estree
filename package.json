@@ -13,6 +13,9 @@
   "keywords": [],
   "author": "GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>",
   "license": "MIT",
+  "files": [
+      "ESTree"
+  ],
   "bugs": {
     "url": "https://github.com/fraxken/ASTree/issues"
   },
