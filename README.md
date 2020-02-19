@@ -20,7 +20,7 @@ Following example require the [astring](https://github.com/davidbonnet/astring#r
 ```js
 "use strict";
 
-const astring = require("astree");
+const astring = require("astring");
 const {
     Expression: { CallExpression, ArrowFunctionExpression, NewExpression },
     Helpers: { CreateMemberExpr },
