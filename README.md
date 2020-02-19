@@ -20,12 +20,12 @@ Following example require the [astring](https://github.com/davidbonnet/astring#r
 ```js
 "use strict";
 
-const astring = require("node-estree");
+const astring = require("astree");
 const {
     Expression: { CallExpression, ArrowFunctionExpression, NewExpression },
     Helpers: { CreateMemberExpr },
     Identifier, Literal, Program, VariableDeclaration
-} = require("astree");
+} = require("node-estree");
 
 const log = (message) => CallExpression(CreateMemberExpr("console", "log"), [new Literal(message)]);
 const createRequire = (name) => CallExpression(CreateMemberExpr("require"), [new Literal(name)]);
