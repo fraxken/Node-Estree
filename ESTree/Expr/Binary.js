@@ -6,7 +6,7 @@ const isExpression = require("../Utils/isExpression");
 // CONSTANT
 const kBinaryOperators = new Set([
     "==", "!=", "===", "!==", "<", "<=", ">", ">=", "<<", ">>",
-    ">>>", "+", "-", "*", "/", "%", "|", "^", "&", "in", "instanceof"
+    ">>>", "+", "-", "*", "**", "/", "%", "|", "^", "&", "in", "instanceof"
 ]);
 
 function BinaryExpression(operator, left, right) {

@@ -20,6 +20,17 @@ class FunctionDeclaration extends Declaration {
         this.generator = generator;
         this.async = async;
     }
+
+    toJSON() {
+        return {
+            type: this.id === null && this.expression ? "ArrowFunctionExpression" : "FunctionDeclaration",
+            params: this.params,
+            body: this.body,
+            expression: this.expression,
+            generator: this.generator,
+            async: this.async
+        };
+    }
 }
 
 module.exports = FunctionDeclaration;

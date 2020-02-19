@@ -10,7 +10,7 @@ class VariableDeclarator {
         }
 
         this.id = identifier.toJSON();
-        this.init = value.toJSON();
+        this.init = Reflect.has(value, "toJSON") ? value.toJSON() : value;
     }
 
     toJSON() {

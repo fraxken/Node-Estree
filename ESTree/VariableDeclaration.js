@@ -17,10 +17,10 @@ class VariableDeclaration extends Declaration {
     static createOne(kind = "let", id, init) {
         argc(kind, is.string);
         argc(id, is.string);
-        argc(init, is.string);
+        // argc(init, is.string);
 
         return new VariableDeclaration(kind)
-            .declare(new VariableDeclarator(new Identifier(id), new Literal(init)));
+            .declare(new VariableDeclarator(new Identifier(id), typeof init === "string" ? new Literal(init) : init));
     }
 
     constructor(kind) {

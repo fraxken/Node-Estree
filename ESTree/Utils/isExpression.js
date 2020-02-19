@@ -2,9 +2,13 @@
 
 // Require Third-party Dependencies
 const is = require("@slimio/is");
+const Identifier = require("../Identifier");
+const Literal = require("../Literal");
 
 // CONSTANTS
 const kAvailableExpression = new Set([
+    "Literal",
+    "Identifier",
     "ExpressionStatement",
     "ThisExpression",
     "ArrayExpression",
@@ -23,6 +27,9 @@ const kAvailableExpression = new Set([
 ]);
 
 function isExpression(obj) {
+    if (obj instanceof Identifier || obj instanceof Literal) {
+        return true;
+    }
     if (!is.plainObject(obj) || !Reflect.has(obj, "type")) {
         return false;
     }

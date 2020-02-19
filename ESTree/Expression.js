@@ -6,6 +6,7 @@ const Binary = require("./Expr/Binary");
 const Identifier = require("./Identifier");
 const Property = require("./Property");
 const isExpression = require("./Utils/isExpression");
+const FunctionDeclaration = require("./FunctionDeclaration");
 
 // CONSTANTS
 const kAssignmentOperators = new Set(["=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", ",=", "^=", "&="]);
@@ -71,6 +72,14 @@ function SequenceExpression(expressions = []) {
     return { type: "SequenceExpression", expressions };
 }
 
+function ArrowFunctionExpression(body, expression = true) {
+    return new FunctionDeclaration(void 0, void 0, body, { expression }).toJSON();
+}
+
+function YieldExpression(arg = null, delegate = false) {
+    return { type: "YieldExpression", argument: arg, delegate };
+}
+
 function AutomaticMemberExpression(...arr) {
     if (arr.length === 0) {
         throw new Error("unable to process an empty array!");
@@ -117,6 +126,8 @@ module.exports = {
     ConditionalExpression,
     LogicalExpression,
     SequenceExpression,
+    ArrowFunctionExpression,
+    YieldExpression,
     Unary,
     Binary
 };
