@@ -1,5 +1,5 @@
 {
-  "name": "ASTree",
+  "name": "astree",
   "version": "1.0.0",
   "description": "ESTREE AST Generator for Node.js",
   "main": "index.js",
@@ -11,20 +11,18 @@
     "url": "git+https://github.com/fraxken/ASTree.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fraxken/ASTree/issues"
   },
   "homepage": "https://github.com/fraxken/ASTree#readme",
   "devDependencies": {
-    "@slimio/eslint-config": "^3.0.3"
+    "@slimio/eslint-config": "^3.0.3",
+    "astring": "^1.4.3"
   },
   "dependencies": {
     "@slimio/arg-checker": "^0.2.1",
-    "@slimio/is": "^1.5.1",
-    "acorn": "^7.1.0",
-    "astring": "^1.4.2",
-    "meriyah": "^1.9.2"
+    "@slimio/is": "^1.5.1"
   }
 }

@@ -3,6 +3,7 @@
     "rules": {
         "jsdoc/require-jsdoc": "off",
         "func-style": "off",
-        "new-cap": "off"
+        "new-cap": "off",
+        "no-extra-parens": "off"
     }
 }

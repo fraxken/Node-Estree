@@ -3,7 +3,6 @@
 // Require Internal Dependencies
 const Unary = require("./Expr/Unary");
 const Binary = require("./Expr/Binary");
-const Identifier = require("./Identifier");
 const Property = require("./Property");
 const isExpression = require("./Utils/isExpression");
 const FunctionDeclaration = require("./FunctionDeclaration");
@@ -41,7 +40,9 @@ function MemberExpression(object, property, computed = false) {
 }
 
 function CallExpression(callee, args = []) {
-    return { type: "CallExpression", callee, arguments: args };
+    const proceedArg = args.map((arg) => (Reflect.has(arg, "toJSON") ? arg.toJSON() : arg));
+
+    return { type: "CallExpression", callee, arguments: proceedArg };
 }
 
 function NewExpression(callee, args = []) {
@@ -80,45 +81,11 @@ function YieldExpression(arg = null, delegate = false) {
     return { type: "YieldExpression", argument: arg, delegate };
 }
 
-function AutomaticMemberExpression(...arr) {
-    if (arr.length === 0) {
-        throw new Error("unable to process an empty array!");
-    }
-    const last = arr.pop();
-    const property = Array.isArray(last) ?
-        CallExpression(typeof last[0] === "string" ? new Identifier(last[0]).toJSON() : last[0], last[1] || []) :
-        new Identifier(last).toJSON();
-
-    if (arr.length === 0) {
-        return property;
-    }
-    else if (arr.length === 1) {
-        const object = Array.isArray(arr[0]) ?
-            CallExpression(typeof arr[0][0] === "string" ? new Identifier(arr[0][0]).toJSON() : arr[0][0], arr[0][1] || []) :
-            new Identifier(arr[0]).toJSON();
-
-        return {
-            type: "MemberExpression",
-            object,
-            computed: false,
-            property
-        };
-    }
-
-    return {
-        type: "MemberExpression",
-        object: buildMemberExpr(...arr),
-        computed: false,
-        property
-    };
-}
-
 module.exports = {
     ThisExpression,
     ArrayExpression,
     ObjectExpression,
     FunctionExpression,
-    AutomaticMemberExpression,
     MemberExpression,
     CallExpression,
     AssignmentExpression,
