@@ -101,6 +101,10 @@ function ForInStatement(left, right, body) {
     return { type: "ForInStatement", left, right, body };
 }
 
+function ForOfStatement(left, right, body) {
+    return { type: "ForOfStatement", left, right, body };
+}
+
 function Try(body = [], handler = null, finalizer = null) {
     return { type: "TryStatement", block: Block(body), handler, finalizer };
 }
@@ -123,5 +127,5 @@ module.exports = {
     Flow: Object.freeze({ Return, Labelel, Break, Continue }),
     Choice: Object.freeze({ If, Switch }),
     Exceptions: Object.freeze({ Try, Throw, Catch }),
-    Loops: Object.freeze({ WhileStatement, ForStatement, ForInStatement })
+    Loops: Object.freeze({ WhileStatement, ForStatement, ForInStatement, ForOfStatement })
 };
