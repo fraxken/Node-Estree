@@ -9,7 +9,8 @@ const isExpression = require("./Utils/isExpression");
 const kPropertyKinds = new Set(["init", "get", "set"]);
 
 class Property {
-    constructor(key, value, kind = "init") {
+    constructor(key, value, options = {}) {
+        const { kind = "init", method = true, shorthand = false, computed = false } = options;
         if (!kPropertyKinds.has(kind)) {
             throw new TypeError("kind must be a valid property kind");
         }
@@ -23,6 +24,9 @@ class Property {
         this.key = key.toJSON();
         this.value = value;
         this.kind = kind;
+        this.method = method;
+        this.shorthand = shorthand;
+        this.computed = computed;
     }
 
     toJSON() {
