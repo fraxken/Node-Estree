@@ -2,7 +2,9 @@
 
 // Require Internal Dependencies
 const Identifier = require("./Identifier");
-const { CallExpression } = require("./Expression");
+const Literal = require("./Literal");
+const Property = require("./Property");
+const { CallExpression, ObjectExpression } = require("./Expression");
 
 function CreateMemberExpr(...arr) {
     if (arr.length === 0) {
@@ -41,7 +43,22 @@ function CreateComment(type = "Line", value = "") {
     return { type, value };
 }
 
+function CreateSimpleObject(entries) {
+    const properties = [];
+    for (const [key, value] of entries) {
+        const property = new Property(
+            Identifier.stringToIdentifier(key),
+            Literal.stringToIdentifier(value)
+        ).toJSON();
+
+        properties.push(property);
+    }
+
+    return ObjectExpression(properties);
+}
+
 module.exports = {
     CreateComment,
+    CreateSimpleObject,
     CreateMemberExpr
 };
