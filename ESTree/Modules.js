@@ -40,14 +40,13 @@ function ImportNamespaceSpecifier(local) {
 }
 
 function ImportDeclaration(specifiers = [], source) {
-    if (!(value instanceof Literal)) {
-        throw new TypeError("source must be a Literal value!");
-    }
+    // eslint-disable-next-line no-param-reassign
+    source = typeof source === "string" ? new Literal(source) : source;
 
     return {
         type: "ImportDeclaration",
         specifiers: specifiers.map((spe) => (typeof spe === "string" ? ImportDefaultSpecifier(spe) : spe)),
-        source
+        source: source.toJSON()
     };
 }
 
