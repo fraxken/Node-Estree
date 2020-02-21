@@ -12,6 +12,7 @@ const SwitchStatement = require("./ESTree/SwitchStatement");
 const VariableDeclaration = require("./ESTree/VariableDeclaration");
 const VariableDeclarator = require("./ESTree/VariableDeclarator");
 const Template = require("./ESTree/Template");
+const Patterns = require("./ESTree/Patterns");
 const Helpers = require("./ESTree/Helpers");
 const Utils = require("./ESTree/Utils");
 
@@ -28,6 +29,7 @@ module.exports = {
     VariableDeclaration,
     VariableDeclarator,
     Template,
+    Patterns,
     Helpers,
     Utils
 };

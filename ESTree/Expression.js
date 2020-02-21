@@ -3,8 +3,6 @@
 // Require Internal Dependencies
 const Unary = require("./Expr/Unary");
 const Binary = require("./Expr/Binary");
-const Property = require("./Property");
-const isExpression = require("./Utils/isExpression");
 const FunctionDeclaration = require("./FunctionDeclaration");
 
 // CONSTANTS
@@ -15,20 +13,12 @@ function ThisExpression() {
     return { type: "ThisExpression" };
 }
 
-function ArrayExpression(expr = null) {
-    if (expr !== null && !isExpression(expr)) {
-        throw new TypeError("expr must be valid Expression AST block");
-    }
-
-    return { type: "ArrayExpression", elements: [expr] };
+function ArrayExpression(...elements) {
+    return { type: "ArrayExpression", elements };
 }
 
-function ObjectExpression(property) {
-    if (!(property instanceof Property)) {
-        throw new TypeError("property must be an instanceof Property");
-    }
-
-    return { type: "ObjectExpression", properties: [property] };
+function ObjectExpression(properties) {
+    return { type: "ObjectExpression", properties };
 }
 
 function FunctionExpression() {
