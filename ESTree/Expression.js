@@ -4,10 +4,15 @@
 const Unary = require("./Expr/Unary");
 const Binary = require("./Expr/Binary");
 const FunctionDeclaration = require("./FunctionDeclaration");
+const { toJSON } = require("./Utils");
 
 // CONSTANTS
 const kAssignmentOperators = new Set(["=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", ",=", "^=", "&=", "**="]);
 const kLogicalOperators = new Set(["&&", "||"]);
+
+function ExpressionStatement(expression) {
+    return { type: "ExpressionStatement", expression };
+}
 
 function ThisExpression() {
     return { type: "ThisExpression" };
@@ -21,8 +26,14 @@ function ObjectExpression(properties) {
     return { type: "ObjectExpression", properties };
 }
 
-function FunctionExpression() {
-    return { type: "FunctionExpression" };
+function FunctionExpression(params, body, async = false) {
+    const func = new FunctionDeclaration(void 0, params, body, {
+        expression: false,
+        async
+    }).toJSON();
+    func.type = "FunctionExpression";
+
+    return func;
 }
 
 function MemberExpression(object, property, computed = false) {
@@ -30,13 +41,11 @@ function MemberExpression(object, property, computed = false) {
 }
 
 function CallExpression(callee, args = []) {
-    const proceedArg = args.map((arg) => (Reflect.has(arg, "toJSON") ? arg.toJSON() : arg));
-
-    return { type: "CallExpression", callee, arguments: proceedArg };
+    return { type: "CallExpression", callee, arguments: toJSON(args) };
 }
 
 function NewExpression(callee, args = []) {
-    return { type: "NewExpression", callee, arguments: args };
+    return { type: "NewExpression", callee, arguments: toJSON(args) };
 }
 
 function ConditionalExpression(test, alternate, consequent) {
@@ -63,8 +72,8 @@ function SequenceExpression(expressions = []) {
     return { type: "SequenceExpression", expressions };
 }
 
-function ArrowFunctionExpression(body, expression = true) {
-    return new FunctionDeclaration(void 0, void 0, body, { expression }).toJSON();
+function ArrowFunctionExpression(body, expression = true, async = false) {
+    return new FunctionDeclaration(void 0, void 0, body, { expression, async }).toJSON();
 }
 
 function YieldExpression(arg = null, delegate = false) {
@@ -76,6 +85,7 @@ function AwaitExpression(arg) {
 }
 
 module.exports = {
+    ExpressionStatement,
     ThisExpression,
     ArrayExpression,
     ObjectExpression,

@@ -5,11 +5,7 @@ const Identifier = require("./Identifier");
 
 class VariableDeclarator {
     constructor(identifier, value) {
-        if (!(identifier instanceof Identifier)) {
-            throw new TypeError("identifier must be a valid instance of Identifier");
-        }
-
-        this.id = identifier.toJSON();
+        this.id = Identifier.stringToIdentifier(identifier);
         this.init = Reflect.has(value, "toJSON") ? value.toJSON() : value;
     }
 

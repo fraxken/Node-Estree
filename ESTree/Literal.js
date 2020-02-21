@@ -8,9 +8,12 @@ class Literal {
         return (is.regExp(value) || is.primitive(value)) && !is.undefined(value);
     }
 
-    static stringToIdentifier(value) {
+    static stringToLiteral(value) {
         if (is.nullOrUndefined(value)) {
             throw new TypeError("value cannot be undefined or null");
+        }
+        if (value instanceof Literal) {
+            return value.toJSON();
         }
 
         return typeof value === "string" ? new Literal(value).toJSON() : value;

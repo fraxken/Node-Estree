@@ -20,8 +20,13 @@ function isType(type, obj) {
     return obj.type === type;
 }
 
+function toJSON(arr) {
+    return arr.map((arg) => (Reflect.has(arg, "toJSON") ? arg.toJSON() : arg));
+}
+
 module.exports = {
     isType,
+    toJSON,
     isExpression,
     isDeclaration,
     isStatement

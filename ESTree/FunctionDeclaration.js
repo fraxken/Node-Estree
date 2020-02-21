@@ -4,6 +4,7 @@
 const Declaration = require("./Abstract/Declaration");
 const Identifier = require("./Identifier");
 const { Block } = require("./Statements");
+const { toJSON } = require("./Utils");
 
 class FunctionDeclaration extends Declaration {
     // eslint-disable-next-line max-params
@@ -12,8 +13,8 @@ class FunctionDeclaration extends Declaration {
         const { expression = false, generator = false, async = false } = options;
 
         this.id = typeof name === "string" ? new Identifier(name) : null;
-        this.params = params;
-        this.body = Block(body);
+        this.params = toJSON(params);
+        this.body = Block(toJSON(body));
 
         // Assign parameters!
         this.expression = expression;
