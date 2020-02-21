@@ -47,8 +47,7 @@ function CreateSimpleObject(entries) {
     const properties = [];
     for (const [key, value] of entries) {
         const property = new Property(
-            Identifier.stringToIdentifier(key),
-            Literal.stringToIdentifier(value)
+            new Identifier(key), Literal.stringToIdentifier(value)
         ).toJSON();
 
         properties.push(property);
