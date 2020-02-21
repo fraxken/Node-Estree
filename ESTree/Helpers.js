@@ -46,10 +46,7 @@ function CreateComment(type = "Line", value = "") {
 function CreateSimpleObject(entries) {
     const properties = [];
     for (const [key, value] of entries) {
-        const property = new Property(
-            new Identifier(key), Literal.stringToIdentifier(value)
-        ).toJSON();
-
+        const property = new Property(new Identifier(key), new Literal(value).toJSON()).toJSON();
         properties.push(property);
     }
 

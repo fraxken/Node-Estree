@@ -19,7 +19,7 @@ class Program {
     add(element, comments = []) {
         const node = is.plainObject(element) ? element : element.toJSON();
         if (comments.length > 0) {
-            node.comments = comments.map((curr) => (typeof curr === "string" ? CreateComment(curr) : curr));
+            node.comments = comments.map((curr) => (typeof curr === "string" ? CreateComment("Line", curr) : curr));
         }
         this.body.push(node);
 
