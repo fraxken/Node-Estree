@@ -37,6 +37,11 @@ function CreateMemberExpr(...arr) {
     };
 }
 
+function CreateComment(type = "Line", value = "") {
+    return { type, value };
+}
+
 module.exports = {
+    CreateComment,
     CreateMemberExpr
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-extra-parens */
 "use strict";
 
@@ -40,7 +41,6 @@ function ImportNamespaceSpecifier(local) {
 }
 
 function ImportDeclaration(specifiers = [], source) {
-    // eslint-disable-next-line no-param-reassign
     source = typeof source === "string" ? new Literal(source) : source;
 
     return {
@@ -71,6 +71,8 @@ function ExportNamedDeclaration(declaration = null, specifiers = [], source = nu
 }
 
 function ExportDefaultDeclaration(declaration) {
+    declaration = typeof declaration === "string" ? new Identifier(declaration).toJSON() : declaration;
+
     return {
         type: "ExportDefaultDeclaration", declaration
     };

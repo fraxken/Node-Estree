@@ -3,6 +3,9 @@
 // Require Third-party Dependencies
 const is = require("@slimio/is");
 
+// Require Internal Dependencies
+const { CreateComment } = require("./Helpers");
+
 class Program {
     constructor(sourceType = "script") {
         if (typeof sourceType !== "string") {
@@ -13,8 +16,12 @@ class Program {
         this.sourceType = sourceType;
     }
 
-    add(element) {
-        this.body.push(is.plainObject(element) ? element : element.toJSON());
+    add(element, comments = []) {
+        const node = is.plainObject(element) ? element : element.toJSON();
+        if (comments.length > 0) {
+            node.comments = comments.map((curr) => (typeof curr === "string" ? CreateComment(curr) : curr));
+        }
+        this.body.push(node);
 
         return this;
     }
