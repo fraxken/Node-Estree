@@ -4,6 +4,7 @@
 const Identifier = require("./Identifier");
 const Literal = require("./Literal");
 const Property = require("./Property");
+const { Expression } = require("./Statements");
 const { CallExpression, ObjectExpression } = require("./Expression");
 
 function CreateMemberExpr(...arr) {
@@ -53,8 +54,17 @@ function CreateSimpleObject(entries) {
     return ObjectExpression(properties);
 }
 
+function FastCall(predicate = null, members) {
+    const intermediateExpr = (...args) => (predicate === null ? CallExpression(...args) : predicate(CallExpression(...args)));
+
+    return (...args) => Expression(intermediateExpr(
+        ...(members.length > 0 ? [CreateMemberExpr(...members), ...args] : args)
+    ));
+}
+
 module.exports = {
     CreateComment,
     CreateSimpleObject,
-    CreateMemberExpr
+    CreateMemberExpr,
+    FastCall
 };

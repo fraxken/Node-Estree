@@ -71,7 +71,7 @@ function YieldExpression(arg = null, delegate = false) {
     return { type: "YieldExpression", argument: arg, delegate };
 }
 
-function AwaitExpresssion(arg) {
+function AwaitExpression(arg) {
     return { type: "AwaitExpression", argument: arg };
 }
 
@@ -89,7 +89,7 @@ module.exports = {
     SequenceExpression,
     ArrowFunctionExpression,
     YieldExpression,
-    AwaitExpresssion,
+    AwaitExpression,
     Unary,
     Binary
 };
