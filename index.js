@@ -13,6 +13,7 @@ const VariableDeclaration = require("./ESTree/VariableDeclaration");
 const VariableDeclarator = require("./ESTree/VariableDeclarator");
 const Template = require("./ESTree/Template");
 const Patterns = require("./ESTree/Patterns");
+const Classes = require("./ESTree/Classes");
 const Helpers = require("./ESTree/Helpers");
 const Utils = require("./ESTree/Utils");
 
@@ -29,6 +30,7 @@ module.exports = {
     VariableDeclaration,
     VariableDeclarator,
     Template,
+    Classes,
     Patterns,
     Helpers,
     Utils

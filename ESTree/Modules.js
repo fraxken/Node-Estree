@@ -41,12 +41,10 @@ function ImportNamespaceSpecifier(local) {
 }
 
 function ImportDeclaration(specifiers = [], source) {
-    source = typeof source === "string" ? new Literal(source) : source;
-
     return {
         type: "ImportDeclaration",
         specifiers: specifiers.map((spe) => (typeof spe === "string" ? ImportDefaultSpecifier(spe) : spe)),
-        source: source.toJSON()
+        source: Literal.stringToLiteral(source)
     };
 }
 
@@ -66,7 +64,7 @@ function ExportNamedDeclaration(declaration = null, specifiers = [], source = nu
         type: "ExportNamedDeclaration",
         declaration,
         specifiers,
-        source
+        source: source === null ? null : Literal.stringToLiteral(source)
     };
 }
 
@@ -74,14 +72,15 @@ function ExportDefaultDeclaration(declaration) {
     declaration = typeof declaration === "string" ? new Identifier(declaration).toJSON() : declaration;
 
     return {
-        type: "ExportDefaultDeclaration", declaration
+        type: "ExportDefaultDeclaration",
+        declaration
     };
 }
 
 function ExportAllDeclaration(source) {
     return {
         type: "ExportAllDeclaration",
-        source: typeof source === "string" ? new Literal(source).toJSON() : source
+        source: Literal.stringToLiteral(source)
     };
 }
 

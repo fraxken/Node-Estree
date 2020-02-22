@@ -34,7 +34,10 @@ class Property {
             type: "Property",
             key: this.key,
             value: this.value,
-            kind: this.kind
+            kind: this.kind,
+            method: this.method,
+            shorthand: this.shorthand,
+            computed: this.computed
         };
     }
 }
