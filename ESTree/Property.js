@@ -22,7 +22,7 @@ class Property {
         }
 
         this.key = key.toJSON();
-        this.value = value;
+        this.value = Reflect.has(value, "toJSON") ? value.toJSON() : value;
         this.kind = kind;
         this.method = method;
         this.shorthand = shorthand;
