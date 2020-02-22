@@ -40,7 +40,7 @@ function ImportNamespaceSpecifier(local) {
     };
 }
 
-function ImportDeclaration(specifiers = [], source) {
+function ImportDeclaration(source, specifiers = []) {
     return {
         type: "ImportDeclaration",
         specifiers: specifiers.map((spe) => (typeof spe === "string" ? ImportDefaultSpecifier(spe) : spe)),

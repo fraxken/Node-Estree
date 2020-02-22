@@ -1,3 +1,5 @@
+/// <reference path="../global.d.ts" />
+
 declare namespace Literal {
     export type JSType = string | number | boolean | symbol | RegExp;
 

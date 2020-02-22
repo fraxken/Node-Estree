@@ -1,3 +1,7 @@
+import * as Identifier from "./ESTree/Identifier"
+import * as Literal from "./ESTree/Literal"
+import * as Modules from "./ESTree/Modules"
+
 declare namespace NodeESTree {
     export interface Expr<T> {
         type: T;
@@ -8,14 +12,15 @@ declare namespace NodeESTree {
         right: R;
     }
 
-    export type Identifier = Identifier | Identifier.JSON | string;
-    export type Literal = Literal | Literal.JSON | Literal.JSType;
+    export type IdentifierValue = Identifier | Identifier.JSON | string;
+    export type LiteralValue = Literal | Literal.JSON | Literal.JSType;
 
     export interface Comment {
         type: "Line" | "Block";
         value: string;
     }
 }
+
 
 export = NodeESTree;
 export as namespace NodeESTree;

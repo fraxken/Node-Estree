@@ -1,3 +1,5 @@
+/// <reference path="../global.d.ts" />
+
 declare namespace Property {
     export type Kind = "init" | "get" | "set";
     export type Key = Identifier.JSON | Literal.JSON;
@@ -20,11 +22,14 @@ declare namespace Property {
     }
 }
 
-declare class Property implements Property.Options {
+declare class Property {
     constructor(key: Identifier | Literal, value: NodeESTree.Expr<any>, options?: any);
 
     key: Property.Key;
     value: NodeESTree.Expr<any>;
+    method: boolean;
+    shorthand: boolean;
+    computed: boolean;
 
     toJSON(): Property.JSON;
 }

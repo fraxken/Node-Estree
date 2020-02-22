@@ -1,3 +1,5 @@
+/// <reference path="../global.d.ts" />
+
 declare namespace Modules {
     export interface ImportDeclaration extends NodeESTree.Expr<"ImportDeclaration"> {
         specifiers: AllSpecifier[];
@@ -38,14 +40,14 @@ declare namespace Modules {
     }
 
     export function ImportExpression(expression: NodeESTree.Expr<any>): ImportExpression;
-    export function ImportSpecifier(imported: NodeESTree.Identifier, local: NodeESTree.Identifier): ImportSpecifier;
-    export function ImportDefaultSpecifier(local: NodeESTree.Identifier): Specifier<"ImportDefaultSpecifier">;
-    export function ImportNamespaceSpecifier(local: NodeESTree.Identifier): Specifier<"ImportNamespaceSpecifier">;
-    export function ImportDeclaration(specifiers?: (string | AllSpecifier)[], source: NodeESTree.Literal): ImportDeclaration;
-    export function ExportSpecifier(exported: NodeESTree.Identifier, local: NodeESTree.Identifier): ExportSpecifier;
-    export function ExportNamedDeclaration(declaration?: any, specifiers?: ExportSpecifier[], source: null | NodeESTree.Literal): ExportNamedDeclaration;
+    export function ImportSpecifier(imported: NodeESTree.IdentifierValue, local: NodeESTree.IdentifierValue): ImportSpecifier;
+    export function ImportDefaultSpecifier(local: NodeESTree.IdentifierValue): Specifier<"ImportDefaultSpecifier">;
+    export function ImportNamespaceSpecifier(local: NodeESTree.IdentifierValue): Specifier<"ImportNamespaceSpecifier">;
+    export function ImportDeclaration(source: NodeESTree.LiteralValue, specifiers?: (string | AllSpecifier)[]): ImportDeclaration;
+    export function ExportSpecifier(exported: NodeESTree.IdentifierValue, local: NodeESTree.IdentifierValue): ExportSpecifier;
+    export function ExportNamedDeclaration(declaration?: any, specifiers?: ExportSpecifier[], source?: null | NodeESTree.LiteralValue): ExportNamedDeclaration;
     export function ExportDefaultDeclaration(declaration: any): ExportDefaultDeclaration;
-    export function ExportAllDeclaration(source: NodeESTree.Literal): ExportAllDeclaration;
+    export function ExportAllDeclaration(source: NodeESTree.LiteralValue): ExportAllDeclaration;
 }
 
 export = Modules;

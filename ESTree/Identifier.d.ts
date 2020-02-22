@@ -1,3 +1,5 @@
+/// <reference path="../global.d.ts" />
+
 declare namespace Identifier {
     export interface JSON {
         type: "Identifier";

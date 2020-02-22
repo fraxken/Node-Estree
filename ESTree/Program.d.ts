@@ -1,3 +1,5 @@
+/// <reference path="../global.d.ts" />
+
 declare namespace Program {
     export type SourceType = "script" | "module";
 
@@ -18,7 +20,7 @@ declare class Program {
     body: NodeESTree.Expr<any>[];
     sourceType: Program.SourceType;
 
-    add(element: any, options?: AddOptions): this;
+    add(element: any, options?: Program.AddOptions): this;
     toJSON(): Program.AST;
 }
 
