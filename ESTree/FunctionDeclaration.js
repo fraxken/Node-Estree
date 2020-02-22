@@ -25,6 +25,7 @@ class FunctionDeclaration extends Declaration {
     toJSON() {
         return {
             type: this.id === null && this.expression ? "ArrowFunctionExpression" : "FunctionDeclaration",
+            id: this.id,
             params: this.params,
             body: this.body,
             expression: this.expression,
