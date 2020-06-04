@@ -4,17 +4,23 @@
 const Identifier = require("./Identifier");
 
 class VariableDeclarator {
-    constructor(identifier, value) {
+    constructor(identifier, value = null) {
         this.id = Identifier.stringToIdentifier(identifier);
-        this.init = Reflect.has(value, "toJSON") ? value.toJSON() : value;
+        if (value !== null) {
+            this.init = Reflect.has(value, "toJSON") ? value.toJSON() : value;
+        }
     }
 
     toJSON() {
-        return {
+        const json = {
             type: "VariableDeclarator",
-            id: this.id,
-            init: this.init
+            id: this.id
         };
+        if (typeof this.init !== "undefined") {
+            json.init = this.init;
+        }
+
+        return json;
     }
 }
 
