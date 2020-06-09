@@ -6,6 +6,7 @@ const Literal = require("./Literal");
 const Property = require("./Property");
 const { Expression } = require("./Statements");
 const { CallExpression, ObjectExpression } = require("./Expression");
+const { TemplateLiteral, TemplateElement } = require("./Template");
 
 function CreateMemberExpr(...arr) {
     if (arr.length === 0) {
@@ -64,9 +65,35 @@ function FastCall(predicate = null, members) {
     ));
 }
 
+function FastLiteral(...args) {
+    const quasis = [];
+    const exprs = [];
+    let lastKind = null;
+
+    for (const node of args) {
+        if (typeof node === "string") {
+            quasis.push(TemplateElement(false, node));
+            lastKind = "quasis";
+        }
+        else {
+            exprs.push(node);
+            lastKind = "expr";
+        }
+    }
+    if (lastKind === "quasis") {
+        quasis[quasis.length - 1].tail = true;
+    }
+    else {
+        quasis.push(TemplateElement(true, ""));
+    }
+
+    return new TemplateLiteral(quasis, exprs);
+}
+
 module.exports = {
     CreateComment,
     CreateSimpleObject,
     CreateMemberExpr,
-    FastCall
+    FastCall,
+    FastLiteral
 };
