@@ -1,4 +1,10 @@
 # Node.js ESTree (AST) generator
+![version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/fraxken/Node-Estree/master/package.json&query=$.version&label=Version)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/fraxken/Node-Estree/commit-activity)
+![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+![size](https://img.shields.io/bundlephobia/min/node-estree)
+![dep](https://img.shields.io/david/fraxken/Node-Estree)
+
 [ESTREE](https://github.com/estree/estree) Spec compliant AST Generator crafted for Node.js. This project is still experimental and doesn't implement the whole estree spec (doing my best).
 
 > Feel free to Pull-request or open issues
