@@ -49,7 +49,7 @@ function Return(arg = null) {
         throw new TypeError("arg must be a valid AST Expression");
     }
 
-    return { type: "ReturnStatement", arguments: arg };
+    return { type: "ReturnStatement", argument: arg };
 }
 
 function Labelel(label, body) {
@@ -128,10 +128,18 @@ module.exports = {
     Empty,
     Debugger,
     WithStatement,
-    Flow: Object.freeze({ Return, Labelel, Break, Continue }),
-    Choice: Object.freeze({ If, Switch }),
-    Exceptions: Object.freeze({ Try, Throw, Catch }),
-    Loops: Object.freeze({
-        WhileStatement, ForStatement, ForInStatement, ForOfStatement, ForAwaitOfStatement
-    })
+    Return,
+    Labelel,
+    Break,
+    Continue,
+    If,
+    Switch,
+    Try,
+    Throw,
+    Catch,
+    WhileStatement,
+    ForStatement,
+    ForInStatement,
+    ForOfStatement,
+    ForAwaitOfStatement
 };

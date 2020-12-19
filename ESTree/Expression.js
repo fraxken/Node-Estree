@@ -1,8 +1,8 @@
 "use strict";
 
 // Require Internal Dependencies
-const Unary = require("./Expr/Unary");
-const Binary = require("./Expr/Binary");
+const { UnaryExpression, UpdateExpression } = require("./Expr/Unary");
+const { BinaryExpression } = require("./Expr/Binary");
 const FunctionDeclaration = require("./FunctionDeclaration");
 const { toJSON } = require("./Utils");
 
@@ -100,6 +100,7 @@ module.exports = {
     ArrowFunctionExpression,
     YieldExpression,
     AwaitExpression,
-    Unary,
-    Binary
+    UnaryExpression,
+    UpdateExpression,
+    BinaryExpression
 };
