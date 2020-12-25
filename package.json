@@ -1,8 +1,9 @@
 {
   "name": "node-estree",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Node.js EStree (AST) Generator for Node.js",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,18 +12,17 @@
     "url": "git+https://github.com/fraxken/ASTree.git"
   },
   "keywords": [
-      "node",
-      "estree",
-      "ast",
-      "generator",
-      "code",
-      "generation"
+    "node",
+    "estree",
+    "ast",
+    "generator",
+    "code",
+    "generation"
   ],
   "author": "GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>",
   "license": "MIT",
   "files": [
-      "global.d.ts",
-      "ESTree"
+    "dist"
   ],
   "bugs": {
     "url": "https://github.com/fraxken/ASTree/issues"
@@ -30,10 +30,10 @@
   "homepage": "https://github.com/fraxken/ASTree#readme",
   "devDependencies": {
     "@slimio/eslint-config": "^3.0.3",
-    "astring": "^1.4.3"
+    "astring": "^1.4.3",
+    "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@slimio/arg-checker": "^0.2.1",
     "@slimio/is": "^1.5.1"
   }
 }
