@@ -183,7 +183,7 @@ export function AssignmentPattern(left: Pattern, right: Expression): AssignmentP
 /**
  * Class 
  */
-export interface Class<T extends "Class" | "ClassDeclaration" | "ClassExpression" = "Class"> extends Node<T> {
+export interface Class<T extends "ClassDeclaration" | "ClassExpression"> extends Node<T> {
     id: Identifier | null;
     superClass: Expression | null;
     body: ClassBody;

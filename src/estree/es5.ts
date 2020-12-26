@@ -180,20 +180,16 @@ export interface Program extends Node<"Program"> {
 
 /**
  * A function declaration or expression.
+ * 
+ * @note
+ * - added generator property in ES2015
+ * - added async property in ES2017
  */
 export interface Function<T = Variant> extends Node<T> {
     id: Identifier | null;
     params: Pattern[];
     body: FunctionBody;
-
-    /**
-    @version ES2015
-    */
     generator: boolean;
-
-    /**
-    @version ES2017
-    */
     async: boolean;
 }
 
