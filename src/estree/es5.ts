@@ -3,6 +3,9 @@ import { createEstreeNode } from "../utils";
 import { Super, SpreadElement, ModuleDeclaration } from "./es2015";
 import { ChainElement } from "./es2020";
 
+/**
+ * Each subtype of Node is documented below with the specific string of its type field.
+ */
 export type Variant =
     "Program" |
     "Identifier" |
@@ -75,7 +78,7 @@ export type Variant =
     "ChainExpression" |
     "BigIntLiteral";
 
-export interface Node<T = Variant> {
+export interface Node<T extends Variant = Variant> {
     /**
     The type field is a string representing the AST variant type. 
     */
@@ -85,10 +88,17 @@ export interface Node<T = Variant> {
     The loc field represents the source location information of the node. If the node contains no information about the source location, the field is null;
     */
     loc: SourceLocation | null;
+
+    /**
+    Custom fields implement by some libraries like Meriyah.
+    */
+    start?: number;
+    end?: number;
+    range?: [number, number];
 }
 
 export interface SourceLocation {
-    source: string | null;
+    source?: string | null;
 
     /**
     The position of the first character of the parsed source region
@@ -114,16 +124,16 @@ export interface Position {
 }
 
 // Destructuring binding and assignment are not part of ES5, but all binding positions accept Pattern to allow for destructuring in ES6.
-export interface Pattern<T = Variant> extends Node<T> {};
+export interface Pattern<T extends Variant = Variant> extends Node<T> {};
 
 // Any expression node. Since the left-hand side of an assignment may be any expression in general, an expression can also be a pattern.
-export interface Expression<T = Variant> extends Node<T> {};
+export interface Expression<T extends Variant = Variant> extends Node<T> {};
 
 // Any statement.
-export interface Statement<T = Variant> extends Node<T> {};
+export interface Statement<T extends Variant = Variant> extends Node<T> {};
 
 // Any declaration node. Note that declarations are considered statements; this is because declarations can appear in any statement context.
-export interface Declaration<T = Variant> extends Statement<T> {};
+export interface Declaration<T extends Variant = Variant> extends Statement<T> {};
 
 /**
  * An identifier. Note that an identifier may be an expression or a destructuring pattern.
@@ -168,14 +178,18 @@ export function RegExpLiteral(pattern: string, flags: string): RegExpLiteral {
 
 /**
  * A complete program source tree.
+ * 
+ * @note
+ * - sourceType for ES2015
  */
 export interface Program extends Node<"Program"> {
-    /**
-    @version ES2015
-    */
     sourceType: "script" | "module";
 
     body: (Directive | Statement | ModuleDeclaration<any>)[];
+}
+
+export function Program(sourceType: "script" | "module", body: (Directive | Statement | ModuleDeclaration<any>)[]) {
+    return { type: "Program", sourceType, body };
 }
 
 /**
@@ -185,7 +199,7 @@ export interface Program extends Node<"Program"> {
  * - added generator property in ES2015
  * - added async property in ES2017
  */
-export interface Function<T = Variant> extends Node<T> {
+export interface Function<T extends Variant = Variant> extends Node<T> {
     id: Identifier | null;
     params: Pattern[];
     body: FunctionBody;

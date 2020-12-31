@@ -31,7 +31,7 @@ export function ImportExpression(source: Expression): ImportExpression {
  * 
  * @see https://github.com/estree/estree/blob/master/es2020.md#chainexpression
  */
-export interface ChainElement<T = Variant> extends Node<T> {
+export interface ChainElement<T extends Variant = Variant> extends Node<T> {
     optional: boolean;
 }
 
