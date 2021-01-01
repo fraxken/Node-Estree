@@ -5,7 +5,7 @@
 ![size](https://img.shields.io/bundlephobia/min/node-estree)
 ![dep](https://img.shields.io/david/fraxken/Node-Estree)
 
-Complete and compliant [ESTree](https://github.com/estree/estree) spec implementation in TypeScript. This project includes type definition, functions and some helpers aside.
+Complete and compliant [ESTree](https://github.com/estree/estree) spec implementation in TypeScript (for Node.js and the Browser). This project includes types definitions, variant functions and some helpers aside to help generating code.
 
 ## Getting Started
 
@@ -29,6 +29,7 @@ const astring = require("astring");
 const logNative = (body) => ESTree.CallExpression(Helpers.AutoChain("console", "log"), body);
 const log = (message) => logNative([ESTree.Literal(message)]);
 
+// Note: i use a generator function because I find it easier to read
 function* program() {
     yield ESTree.ExpressionStatement(log("hello world!"));
     {
@@ -88,7 +89,7 @@ switch (a) {
 }
 ```
 
-When you want to generate a code I recommend the use of [astexplorer](https://astexplorer.net/).
+When you want to generate a given code I recommend you to use [astexplorer](https://astexplorer.net/). You can observe how the tree is built and reproduce the same thing with my lib.
 
 ## API
 
@@ -187,7 +188,6 @@ Those implementation are experimental and may change in future (they are not rel
 - [Helpers API](./docs/helpers.md)
 - [VarDeclaration](./docs/VarDeclaration.md)
 - [Switch (stand for SwitchStatement)](./docs/Switch.md)
-
 
 ## License
 MIT
