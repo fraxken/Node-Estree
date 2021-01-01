@@ -185,7 +185,7 @@ type Variant =
 
 Those implementation are experimental and may change in future (they are not related to the ESTree spec in any way). Please also feel free to feedback or PR new things!
 
-- [Helpers API](./docs/helpers.md)
+- [Helpers API](./docs/Helpers.md)
 - [VarDeclaration](./docs/VarDeclaration.md)
 - [Switch (stand for SwitchStatement)](./docs/Switch.md)
 
