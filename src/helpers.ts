@@ -1,30 +1,61 @@
+// Import Internal Dependencies
 import {
     Identifier, Literal, Property, SourceLocation,
     ObjectExpression, MemberExpression, CallExpression, ExpressionStatement, Expression, Variant,
-    TemplateElement, TemplateLiteral, LiteralValue
+    TemplateElement, TemplateLiteral, LiteralValue,
+    ExpressionSpreadArray,
+    Super,
+    ArrayExpression
 } from "./estree/index";
+import { isLiteral } from "./utils";
 
-export function MemberExpressionList(...arr: (string | any[])[]) {
+export type AutoChainItem = string | [string | Expression<Variant> | Super, ExpressionSpreadArray?, boolean?];
+
+function CallExprFromChainItem(arr: [string | Expression<Variant> | Super, ExpressionSpreadArray?, boolean?]) {
+    const [callee, args = [], optional = false] = arr;
+
+    return CallExpression(typeof callee === "string" ? Identifier(callee) : callee, args, optional);
+}
+
+/**
+ * Combine multiple MemberExpression and CallExpression
+ * 
+ * @example
+ * AutoChain("a", "b", ["c"], "d", ["e"]); // a.b.c().d.e()
+ */
+export function AutoChain(...arr: AutoChainItem[]): Expression<Variant> {
     if (arr.length === 0) {
-        throw new Error("unable to process an empty array!");
+        throw new Error("Unable to create a MemberExpression list with no items to proceed!");
     }
 
-    const last = arr.pop();
-    const property = Array.isArray(last) ?
-        CallExpression(typeof last[0] === "string" ? Identifier(last[0]) : last[0], last[1] || []) :
-        Identifier(last as string);
+    const last = arr.pop() as AutoChainItem;
+    const property = Array.isArray(last) ? CallExprFromChainItem(last) : Identifier(last);
 
     switch(arr.length) {
         case 0: return property;
         case 1: {
-            const object = Array.isArray(arr[0]) ?
-                CallExpression(typeof arr[0][0] === "string" ? Identifier(arr[0][0]) : arr[0][0], arr[0][1] || []) :
-                Identifier(arr[0]);
-
-            return MemberExpression(object, property);
+            return MemberExpression(
+                Array.isArray(arr[0]) ? CallExprFromChainItem(arr[0]) : Identifier(arr[0]),
+                property
+            );
         }
-        default: return MemberExpression(MemberExpressionList(...arr), property);
+        default: return MemberExpression(AutoChain(...arr), property);
     }
+}
+
+export function AutoChainStr(chainStr: string, inject: Record<string, ExpressionSpreadArray> = {}) {
+    const groups = chainStr.split(".");
+    const items = groups.map((itemStr) => {
+        const result = /^([\?]?)([\w]+)([\(]?)/g.exec(itemStr);
+        if (result === null) {
+            throw new Error("invalid chain item!");
+        }
+        const [, optional, itemName, isCallExpression] = result;
+
+        return isCallExpression === "(" ? [Identifier(itemName), inject[itemName], optional === "?"] : itemName;
+    }) as AutoChainItem[];
+
+    return AutoChain(...items);
 }
 
 /**
@@ -46,14 +77,24 @@ export function Comment(value: string, options: CommentOptions = Object.create(n
     return { type, value, start, end, loc };
 }
 
+/**
+ * ES6 Symbol
+ * 
+ * @example
+ * Symbol("foo"); // Symbol("foo")
+ */
 export function Symbol(name: string) {
     return CallExpression(Identifier("Symbol"), [Literal(name)]);
 }
 
-export function PlainObject(obj: Record<string | number, LiteralValue>) {
+/**
+ * Create a plainObject where properties are only Literal (and operation kind only init).
+ */
+export function PlainObject(obj: Record<string | number, Expression<Variant> | LiteralValue>) {
     const properties: Property[] = [];
-    for (const [key, value] of Object.entries(obj)) {
-        const property = Property(Identifier(key), Literal(value), {
+    for (const [key, rawValue] of Object.entries(obj)) {
+        const value = (isLiteral(rawValue) ? Literal(rawValue as LiteralValue) : rawValue) as Expression<Variant>;
+        const property = Property(Identifier(key), value, {
             kind: "init",
             computed: false,
             shorthand: false,
@@ -65,16 +106,32 @@ export function PlainObject(obj: Record<string | number, LiteralValue>) {
     return ObjectExpression(properties);
 }
 
-export function FastCall(predicate = null, members) {
-    // @ts-ignore
-    const intermediateExpr = (...args) => (predicate === null ? CallExpression(...args) : predicate(CallExpression(...args)));
+/**
+ * Create an Array where elements are only Literal
+ */
+export function LiteralArray(...values: LiteralValue[]) {
+    return ArrayExpression(values.map((value) => Literal(value)));
+}
 
-    return (...args) => ExpressionStatement(intermediateExpr(
+export type FastCallPredicate = (callExpr: CallExpression) => Expression<Variant>;
+
+export function FastCall(members: AutoChainItem[], predicate?: FastCallPredicate) {
+    const intermediateCallExpression = (callee: Super | Expression<Variant>, args?: ExpressionSpreadArray) => 
+        (typeof predicate === "undefined" ? CallExpression(callee, args) : predicate(CallExpression(callee, args)));
+
+    return (...args: any[]) => ExpressionStatement(intermediateCallExpression(
+        // @ts-ignore
         ...(members.length > 0 ? [MemberExpressionList(...members), ...args] : args)
     ));
 }
 
-export function FastLiteral(...args: (Expression<Variant> | string)[]) {
+/**
+ * Easily create ES6 Template
+ * 
+ * @example
+ * Template("hello", ESTree.Identifier("name")); // `hello ${name}`
+ */
+export function Template(...args: (Expression<Variant> | string)[]) {
     const quasis: TemplateElement[] = [];
     const exprs: Expression<Variant>[] = [];
     let lastKind: "quasis" | "expr" | null = null;

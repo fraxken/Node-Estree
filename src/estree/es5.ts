@@ -176,6 +176,8 @@ export function RegExpLiteral(pattern: string, flags: string): RegExpLiteral {
     return createEstreeNode("RegExpLiteral", { value: null, regex: { pattern, flags } });
 }
 
+export type ProgramBodyItem = Directive | Statement | ModuleDeclaration<any>;
+
 /**
  * A complete program source tree.
  * 
@@ -185,10 +187,10 @@ export function RegExpLiteral(pattern: string, flags: string): RegExpLiteral {
 export interface Program extends Node<"Program"> {
     sourceType: "script" | "module";
 
-    body: (Directive | Statement | ModuleDeclaration<any>)[];
+    body: ProgramBodyItem[];
 }
 
-export function Program(sourceType: "script" | "module", body: (Directive | Statement | ModuleDeclaration<any>)[]) {
+export function Program(sourceType: "script" | "module", body: ProgramBodyItem[]) {
     return { type: "Program", sourceType, body };
 }
 
@@ -486,7 +488,7 @@ export function FunctionDeclaration(id: Identifier, options: FunctionDeclaration
  * @note
  * - "let" & "const" added in ES2015
  */
-type VariableKind = "var" | "let" | "const";
+export type VariableKind = "var" | "let" | "const";
 
 export interface VariableDeclaration extends Declaration<"VariableDeclaration"> {
     declarations: VariableDeclarator[];
@@ -712,7 +714,7 @@ export function ConditionalExpression(test: Expression, alternate: Expression, c
     return createEstreeNode("ConditionalExpression", { test, alternate, consequent });
 }
 
-type ExpressionSpreadArray = (Expression | SpreadElement)[];
+export type ExpressionSpreadArray = (Expression | SpreadElement)[];
 
 /**
  * A function or method call expression.
