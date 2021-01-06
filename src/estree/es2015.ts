@@ -18,8 +18,8 @@ export interface ForOfStatement extends ForInStatement<"ForOfStatement"> {
     await: boolean;
 };
 
-export function ForOfStatement(left: VariableDeclaration | Pattern, right: Expression, body: Statement, await: boolean = false): ForOfStatement {
-    return createEstreeNode("ForOfStatement", { body, left, right, await });
+export function ForOfStatement(left: VariableDeclaration | Pattern, right: Expression, body: Statement, isAwait: boolean = false): ForOfStatement {
+    return createEstreeNode("ForOfStatement", { body, left, right, await: isAwait });
 }
 
 /**
