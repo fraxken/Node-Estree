@@ -6,12 +6,12 @@ import { createEstreeNode } from "../utils";
  * bigint property is the string representation of the BigInt value. It doesn't include the suffix n.
  * In environments that don't support BigInt values, value property will be null as the BigInt value can't be represented natively.
  */
-export interface BigIntLiteral extends Literal<"BigIntLiteral"> {
+export interface BigIntLiteral extends Literal {
     bigint: string;
 }
 
 export function BigIntLiteral(value: LiteralValue, bigint: string): BigIntLiteral {
-    return createEstreeNode("BigIntLiteral", { value, bigint });
+    return createEstreeNode("Literal", { value, bigint });
 }
 
 /**
