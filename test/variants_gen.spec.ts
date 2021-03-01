@@ -12,3 +12,8 @@ test("Identifier", () => {
     expect(astring.generate(program)).toStrictEqual("foo;\n");
 });
 
+test('ImportExpression', () => {
+    const program = createLineProgram(ESTree.ImportExpression(ESTree.Literal("./foo")));
+    expect(astring.generate(program)).toStrictEqual("import(\"./foo\");\n");
+})
+

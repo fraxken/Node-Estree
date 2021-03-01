@@ -24,3 +24,13 @@ test("Identifier", () => {
     expect(Object.keys(node).sort()).toEqual(["type", "name", "loc"].sort());
 });
 
+test('ImportExpression', () => {
+    const source = "./foo";
+    const node = ESTree.ImportExpression(ESTree.Literal(source));
+
+    expect(node.type).toStrictEqual("ImportExpression");
+    expect(node.source).toStrictEqual(ESTree.Literal(source));
+    expect(node.loc).toStrictEqual(null);
+    expect(Object.keys(node).sort()).toEqual(["type", "source", "loc"].sort());
+})
+
