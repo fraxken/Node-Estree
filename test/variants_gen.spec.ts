@@ -21,6 +21,13 @@ test('BigIntLiteral', () => {
     const bigint = 9007199254740991;
 
     const program = createLineProgram(ESTree.BigIntLiteral(bigint, bigint.toString()));
-    expect(astring.generate(program)).toStrictEqual(bigint.toString() +';\n')
+    expect(astring.generate(program)).toStrictEqual(bigint.toString() +'n;\n')
 });
+
+test('AwaitExpression', () => {
+    const expression = ESTree.CallExpression(ESTree.Identifier('foo'));
+    const program = createLineProgram(ESTree.AwaitExpression(expression));
+
+    expect(astring.generate(program)).toStrictEqual("await foo();\n");
+})
 
