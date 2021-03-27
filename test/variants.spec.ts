@@ -21,7 +21,6 @@ test("Identifier", () => {
     expect(node.type).toStrictEqual("Identifier");
     expect(node.name).toStrictEqual("foo");
     expect(node.loc).toStrictEqual(null);
-    expect(Object.keys(node).sort()).toEqual(["type", "name", "loc"].sort());
 });
 
 test('ImportExpression', () => {
@@ -31,7 +30,6 @@ test('ImportExpression', () => {
     expect(node.type).toStrictEqual("ImportExpression");
     expect(node.source).toStrictEqual(ESTree.Literal(source));
     expect(node.loc).toStrictEqual(null);
-    expect(Object.keys(node).sort()).toEqual(["type", "source", "loc"].sort());
 })
 test('BigIntLiteral', () => {
     const bigint = '9007199254740991';
@@ -42,4 +40,13 @@ test('BigIntLiteral', () => {
     expect(node.bigint).toStrictEqual(bigint);
     expect(node.loc).toStrictEqual(null);
 });
+
+test('AwaitExpression', () => {
+    const expression = ESTree.CallExpression(ESTree.Identifier('foo'));
+    const node = ESTree.AwaitExpression(expression);
+
+    expect(node.type).toStrictEqual('AwaitExpression');
+    expect(node.argument).toStrictEqual(expression);
+    expect(node.loc).toStrictEqual(null);
+})
 
