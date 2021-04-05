@@ -2,7 +2,7 @@
 import { ESTree } from "../src/index";
 
 // Import Utils
-import { pickOne } from "./utils";
+import { pickOne, log } from "./utils";
 
 test("Program", () => {
     const sourceType = pickOne("script", "module");
@@ -50,3 +50,16 @@ test('AwaitExpression', () => {
     expect(node.loc).toStrictEqual(null);
 })
 
+test('ForOfStatement', () => {
+    const left = ESTree.VariableDeclaration([ESTree.VariableDeclarator(ESTree.Identifier('item'))]);
+    const right = ESTree.Identifier('items');
+    const body = ESTree.BlockStatement([ESTree.ExpressionStatement(log("hello world!"))]);
+    const node = ESTree.ForOfStatement(left, right, body);
+;
+    expect(node.await).toStrictEqual(false);
+    expect(node.left).toStrictEqual(left);
+    expect(node.right).toStrictEqual(right);
+    expect(node.body).toStrictEqual(body);
+    expect(node.loc).toBe(null);
+    expect(node.type).toStrictEqual('ForOfStatement');
+})
