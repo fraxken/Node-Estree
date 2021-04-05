@@ -5,7 +5,7 @@ import * as astring from "astring";
 import { ESTree } from "../src/index";
 
 // Import Utils
-import { createLineProgram } from "./utils";
+import { createLineProgram, log } from "./utils";
 
 test("Identifier", () => {
     const program = createLineProgram(ESTree.Identifier("foo"));
@@ -29,5 +29,14 @@ test('AwaitExpression', () => {
     const program = createLineProgram(ESTree.AwaitExpression(expression));
 
     expect(astring.generate(program)).toStrictEqual("await foo();\n");
-})
+});
+
+test('ForOfStatement', () => {
+    const left = ESTree.VariableDeclaration([ESTree.VariableDeclarator(ESTree.Identifier('item'))]);
+    const right = ESTree.Identifier('items');
+    const body = ESTree.BlockStatement([ESTree.ExpressionStatement(log("hello world!"))]);
+    const program = createLineProgram(ESTree.ForOfStatement(left, right, body));
+
+    expect(astring.generate(program)).toEqual("for (var item of items) {\n  console.log(\"hello world!\");\n};\n");
+});
 
