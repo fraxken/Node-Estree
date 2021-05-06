@@ -50,11 +50,11 @@ export interface ArrowFunctionExpression extends Omit<Function<"ArrowFunctionExp
     expression: boolean;
 };
 
-export type ArrowFunctionExprOptions = Pick<Function, "params" | "generator" | "async"> & { expression: boolean };
+export type ArrowFunctionExprOptions = Partial<Pick<Function, "params" | "generator" | "async"> & { expression: boolean }>;
 
 export function ArrowFunctionExpression(body: FunctionBody | Expression, options: ArrowFunctionExprOptions = Object.create(null)): ArrowFunctionExpression {
-    const { params, generator, async, expression } = options;
-    
+    const { params = [], generator = false, async = false, expression = false } = options;
+
     return createEstreeNode("ArrowFunctionExpression", { id: null, body, params, generator, async, expression });
 }
 
