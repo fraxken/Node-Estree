@@ -8,10 +8,10 @@ import { ESTree } from "../src/index";
 import { createLineProgram } from "./utils";
 
 function buildSpreadElementExpression() {
-  const expression = ESTree.ExpressionStatement(ESTree.ArrayExpression([
+  const expression = ESTree.ArrayExpression([
     ESTree.Literal(2),
     ESTree.Literal(3),
-  ]));
+  ]);
   const node = ESTree.SpreadElement(expression);
 
   return { node, expression };
@@ -30,5 +30,5 @@ test('SpreadElement::generate', () => {
   const program = createLineProgram(node);
   const generatedCode = astring.generate(program)
   
-  expect(generatedCode).toStrictEqual("...[2, 3];;\n");
+  expect(generatedCode).toStrictEqual("...[2, 3];\n");
 });
