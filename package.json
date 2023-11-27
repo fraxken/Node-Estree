@@ -1,6 +1,6 @@
 {
   "name": "node-estree",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "Node.js EStree (AST) Generator for Node.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
